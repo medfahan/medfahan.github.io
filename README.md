@@ -29,14 +29,12 @@ python3 -m http.server 8000
 
 ### Before sharing the link
 
-Three things are still placeholders, each marked `TODO` on the page:
+Two things are still placeholders, each marked `TODO` on the page:
 
 1. **Projects** — replace both cards with real work, or delete the whole
    `<section>`. There's a copy-paste template in an HTML comment just above
    them. Coursework counts.
 2. **Education** — fill in school, programme and relevant modules.
-3. **Email** — the footer says `you@example.com`. Swap in whichever address
-   you actually want public.
 
 Once a block says something true, delete its `class="todo"` and its
 `<span class="badge">TODO</span>` so it stops looking unfinished.
