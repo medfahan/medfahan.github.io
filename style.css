@@ -1,0 +1,328 @@
+/* ---------------------------------------------------------------
+   fukukitaru.me — one stylesheet, no dependencies.
+   Every colour and size worth touching is a variable below.
+   --------------------------------------------------------------- */
+
+:root {
+  --bg:      #0d0d0f;   /* page background      */
+  --surface: #15151a;   /* cards                */
+  --text:    #e8e6e3;   /* body text            */
+  --muted:   #8a8780;   /* secondary text       */
+  --line:    #26262c;   /* hairlines, empty meter segments */
+  --accent:  #e8a33d;   /* amber — the only accent colour */
+
+  /* System monospace: zero network requests, renders instantly.
+     Want JetBrains Mono instead? Add its <link> in index.html and
+     put "JetBrains Mono" at the front of this list. */
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono",
+          Menlo, Consolas, "Liberation Mono", monospace;
+
+  --measure: 68ch;      /* comfortable reading width */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1.7 var(--mono);
+  /* Faint glow behind the top of the page. Fixed so it never tiles. */
+  background-image: radial-gradient(
+    60ch 28ch at 50% -6ch,
+    rgba(232, 163, 61, 0.10),
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: 0 1rem 4rem;
+}
+
+/* --- Skip link: hidden until keyboard-focused ------------------ */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* --- Header ---------------------------------------------------- */
+
+.hero {
+  padding: 5rem 0 2.5rem;
+}
+
+.prompt {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.prompt::before {
+  content: "> ";
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0;
+  /* The handle is long — let it scale down on narrow screens
+     instead of overflowing. */
+  font-size: clamp(1.5rem, 7vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  background: var(--accent);
+  vertical-align: -0.12em;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.tagline {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+}
+
+/* --- Sections -------------------------------------------------- */
+
+.section,
+.footer {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.label {
+  margin: 0 0 1.25rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sub {
+  margin: 2.25rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+
+/* --- Links ----------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-underline-offset 120ms ease;
+}
+a:hover { text-underline-offset: 0.35em; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* --- Skills ---------------------------------------------------- */
+
+.skills {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill {
+  display: grid;
+  grid-template-columns: 6ch auto 1fr;
+  gap: 0 1.25rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.skill-name { font-weight: 600; }
+
+.skill-note {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.meter {
+  display: inline-flex;
+  gap: 4px;
+}
+.meter i {
+  width: 22px;
+  height: 9px;
+  background: var(--line);
+  border-radius: 1px;
+}
+.meter i.on { background: var(--accent); }
+
+/* --- Chips ----------------------------------------------------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--text);
+  font-size: 0.875rem;
+}
+.chip-note { color: var(--muted); }
+
+/* --- Project cards --------------------------------------------- */
+
+.card {
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  transition: border-color 120ms ease;
+}
+.card:last-child { margin-bottom: 0; }
+.card:hover { border-color: #3a3a44; }
+
+.card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.stack {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* --- Education facts ------------------------------------------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: 12ch 1fr;
+  gap: 0.6rem 1.25rem;
+  margin: 0;
+}
+.facts dt {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.facts dd { margin: 0; }
+
+/* The dashed placeholder box needs its own border and padding, otherwise
+   the text sits directly on the dashes. */
+.facts.todo {
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: 3px;
+}
+
+/* --- Unfinished content ----------------------------------------
+   Anything still carrying .todo is placeholder text. Remove the
+   class (and the <span class="badge">) once it says something real. */
+
+.todo {
+  border-style: dashed;
+  color: var(--muted);
+}
+.todo .card-title,
+.todo dd { color: var(--text); }
+
+.badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  vertical-align: 0.1em;
+}
+
+/* --- Footer ---------------------------------------------------- */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fineprint {
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* --- 404 ------------------------------------------------------- */
+
+.notfound {
+  padding: 6rem 0 2.5rem;
+  border: 0;
+}
+.notfound h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+
+/* --- Narrow screens -------------------------------------------- */
+
+@media (max-width: 30rem) {
+  .hero { padding-top: 3.5rem; }
+
+  /* Stack the meter under the name so nothing gets squeezed. */
+  .skill {
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+  }
+  .skill-name { grid-row: 1; grid-column: 1; }
+  .skill-note { grid-row: 1; grid-column: 2; text-align: right; }
+  .meter      { grid-row: 2; grid-column: 1 / -1; }
+
+  .facts { grid-template-columns: 1fr; gap: 0.2rem; }
+  .facts dd { margin-bottom: 0.8rem; }
+  .facts dd:last-of-type { margin-bottom: 0; }
+}
+
+/* --- Respect reduced-motion ------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
